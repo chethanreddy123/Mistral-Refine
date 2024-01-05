@@ -2,16 +2,13 @@ from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from transformers import AutoModelForCausalLM, AutoTokenizer, GPTQConfig
 
 
-
 class MistralPrep:
     def __init__(
         self, 
-        dataset_path, 
         model_name_or_path, 
         r, 
         alpha, 
         lora_dropout=0.1, 
-        bias=None,  # Changed "None" (string) to None (NoneType)
         task_type="CASUAL_LM", 
         target_modules=["q_proj", "v_proj"],
         output_dir="mistral-finetuned", 
@@ -27,7 +24,6 @@ class MistralPrep:
         fp16=True, 
         push_to_hub=False
     ):
-        self.dataset_path = dataset_path
         self.model_name_or_path = model_name_or_path
         self.r = r
         self.alpha = alpha
@@ -66,7 +62,7 @@ class MistralPrep:
         model = prepare_model_for_kbit_training(model)
 
         peft_config = LoraConfig(
-            r=self.r, lora_alpha=self.alpha, lora_dropout=self.lora_dropout, bias=self.bias, task_type=self.task_type,
+            r=self.r, lora_alpha=self.alpha, lora_dropout=self.lora_dropout, task_type=self.task_type,
             target_modules=self.target_modules
         )
 

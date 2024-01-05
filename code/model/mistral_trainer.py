@@ -5,9 +5,9 @@ from trl import SFTTrainer
 
 class MistralTrainer:
     def __init__(self, dataset_path, model_name_or_path, r, alpha):
-        ImportingMistralPrep = MistralPrep(dataset_path, model_name_or_path, r, alpha)
+        ImportingMistralPrep = MistralPrep(model_name_or_path = model_name_or_path, r = r,alpha = alpha)
         self.model, self.tokenizer, self.peft_config   =  ImportingMistralPrep.prep_model()
-        self.formatted_data = DataFormatter.prepare_dataset("path") 
+        self.formatted_data = DataFormatter.prepare_dataset(dataset_path) 
         self.output_dir =  ImportingMistralPrep.output_dir
         self.per_device_train_batch_size = ImportingMistralPrep.per_device_train_batch_size
         self.gradient_accumulation_steps = ImportingMistralPrep.gradient_accumulation_steps

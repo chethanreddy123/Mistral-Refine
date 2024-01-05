@@ -1,7 +1,7 @@
 from model.mistral_trainer import MistralTrainer
 
 def main():
-    dataset_path = "/Users/achethanreddy/Documents/Personal Projects/MistralRefine/data/test.csv"
+    dataset_path = "test.csv"
     model_name_or_path = "mistralai/Mistral-7B-Instruct-v0.2"
     r = 8
     alpha = 8
