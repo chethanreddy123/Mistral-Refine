@@ -1,0 +1,7 @@
+git+https://github.com/huggingface/transformers
+torch 
+torchvision 
+torchaudio --index-url https://download.pytorch.org/whl/cu121
+accelerate
+datasets
+peft
