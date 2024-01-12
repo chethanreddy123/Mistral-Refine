@@ -9,6 +9,7 @@ class MistralPrep:
         r, 
         alpha, 
         lora_dropout=0.1, 
+        
         task_type="CASUAL_LM", 
         target_modules=["q_proj", "v_proj"],
         output_dir="mistral-finetuned", 
@@ -28,7 +29,7 @@ class MistralPrep:
         self.r = r
         self.alpha = alpha
         self.lora_dropout = lora_dropout
-        self.bias = bias
+       
         self.task_type = task_type
         self.target_modules = target_modules
         self.output_dir = output_dir
@@ -48,7 +49,7 @@ class MistralPrep:
     def prep_model(self):
         tokenizer = AutoTokenizer.from_pretrained(self.model_name_or_path)
         tokenizer.pad_token = tokenizer.eos_token
-        quantization_config_loading = GPTQConfig(bits=4, disable_exllama=True, tokenizer=tokenizer)
+        quantization_config_loading = GPTQConfig(bits=4, use_exllama=False, tokenizer=tokenizer)
         model = AutoModelForCausalLM.from_pretrained(
             self.model_name_or_path,
             quantization_config=quantization_config_loading,
@@ -69,5 +70,3 @@ class MistralPrep:
         model = get_peft_model(model, peft_config)
 
         return model, tokenizer, peft_config
-
-        

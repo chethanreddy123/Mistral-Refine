@@ -10,7 +10,7 @@ class DataFormatter:
         self.dataset_path = dataset_path
 
     def prepare_dataset(self):
-        data_df = pd.read_csv("code/test.csv")
+        data_df = pd.read_csv(self.dataset_path)
         data_df["text"] = data_df[["ocr_text", "response"]].apply(
             lambda x: "###Human: Summarize this following dialogue: " + str(x["ocr_text"]) + "\n###Assistant: " + str(x["response"]), axis=1
         )
