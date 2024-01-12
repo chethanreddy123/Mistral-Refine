@@ -1,7 +1,5 @@
 import argparse
-from peft import AutoPeftModelForCausalLM, TaskType
-from transformers import GenerationConfig, AutoTokenizer, AutoModelForCausalLM
-import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 
 class InvoiceExtractor:
     def __init__(self, model_path, tokenizer_path):
@@ -11,7 +9,7 @@ class InvoiceExtractor:
             low_cpu_mem_usage=True,
             return_dict=True,
             torch_dtype=torch.float16,
-            device_map="cuda"
+            device="cuda"
         )
 
     def generate_invoice(self, raw_text):
@@ -48,8 +46,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Update these paths accordingly
-    model_path = "checkpoint-50"
-    tokenizer_path = "checkpoint-50"
+    model_path = "/content/Mistral/code/mistral-finetuned/checkpoint-50"
+    tokenizer_path = "/content/Mistral/code/mistral-finetuned/checkpoint-50"
 
     # Initialize the InvoiceExtractor
     invoice_extractor = InvoiceExtractor(model_path, tokenizer_path)
